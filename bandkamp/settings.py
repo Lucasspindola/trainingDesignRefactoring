@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import dotenv
 from datetime import timedelta
+
 # carregando dotenv(.env, se estiver em outro local, especificar caminho aqui)
 dotenv.load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -52,7 +53,9 @@ MY_APPS = [
     "songs",
 ]
 
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
+API_DOCUMENTATION = ['drf_spectacular',]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS + API_DOCUMENTATION
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -130,6 +133,7 @@ SIMPLE_JWT = {
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 2,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 # Internationalization
@@ -155,3 +159,10 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.User"
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'bandkamp API',
+    'DESCRIPTION': 'Application allows managing music collections with features such as search, filtering and sorting. It was converted to use Generic Views, Model Serializer and Postgres, making it more efficient and scalable. Furthermore, the application is highly customizable to suit user preferences.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
